@@ -1,2 +1,3 @@
-# sand-table-control-application
-Exported from Caffeine project: Sand Table Control Application
+## Sand Table Control Application
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

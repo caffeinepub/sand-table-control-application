@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Commercial-ready mobile app (Flutter/React Native) to control a kinetic sand table via Arduino/ESP32 over Wi‑Fi (HTTP/WebSocket) and Bluetooth serial, including pattern gallery/control, AI-assisted custom pattern generation (to G-code), LED RGB control, live status dashboard, and safety/recovery flows.",
+  "architectural_notes": [
+    "Controller is Arduino/ESP32 executing G-code patterns from SD card.",
+    "Primary connectivity via Wi‑Fi using HTTP and/or WebSocket; Bluetooth serial as fallback.",
+    "Command protocol includes run/stop/home/select-pattern plus LED and speed commands.",
+    "Custom pattern pipeline: sketch/image/prompt → path planning/optimization → G-code; preview simulation before execution."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimal premium app logo mark, sand-table themed abstract lines (app-logo.dim_512x512.png)\n- Empty state illustration showing a stylized sand table with a path line (empty-patterns.dim_1200x800.png)\n- Set of simple line icons for Start/Pause/Stop/Home/Retrace/E-Stop (control-icons.dim_512x512.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-coherent-modern-visual-theme-for-the-app-clean-minimal-premium-with-consistent-typography-spacing-and-components-include-dark-mode-and-a-responsive-layout-that-works-well-on-phones-and-wall-mounted-tablets",
+      "title": "Create a coherent, modern visual theme for the app (clean, minimal, premium) with consistent typography, spacing, and components; include dark mode and a responsive layout that works well on phones and wall-mounted tablets.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-app-navigation-and-screen-structure-for-pattern-gallery-pattern-detail-run-control-custom-pattern-creator-led-control-live-status-dashboard-and-settings-connection",
+      "title": "Implement app navigation and screen structure for: Pattern Gallery, Pattern Detail/Run Control, Custom Pattern Creator, LED Control, Live Status Dashboard, and Settings/Connection.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-pattern-gallery-ui-as-a-scrollable-grid-list-of-pattern-tiles-showing-pattern-name-thumbnail-preview-and-estimated-duration-support-filtering-sorting-by-name-and-duration",
+      "title": "Build the Pattern Gallery UI as a scrollable grid/list of pattern tiles showing pattern name, thumbnail preview, and estimated duration; support filtering/sorting by name and duration.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-pattern-run-controls-per-pattern-start-pause-stop-home-and-retrace-include-confirmation-dialogs-for-risky-actions-home-stop-during-run-and-an-always-visible-emergency-stop-control",
+      "title": "Implement Pattern Run Controls per pattern: Start, Pause, Stop, Home, and Retrace; include confirmation dialogs for risky actions (Home, Stop during run) and an always-visible Emergency Stop control.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-connection-setup-flow-that-lets-users-configure-and-test-controller-connectivity-over-wi-fi-a-http-base-url-and-b-optional-websocket-url-include-connection-status-indicator-and-last-error-message",
+      "title": "Add a Connection Setup flow that lets users configure and test controller connectivity over Wi‑Fi: (a) HTTP base URL and (b) optional WebSocket URL; include connection status indicator and last error message.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-and-implement-a-controller-command-protocol-layer-in-the-frontend-that-can-send-the-specified-commands-r-s-h-p-n-led-r-g-b-spd-xxx-over-wi-fi-http-and-or-websocket-with-request-ack-handling-timeouts-and-user-visible-error-feedback",
+      "title": "Define and implement a controller command protocol layer in the frontend that can send the specified commands (R, S, H, P<n>, LED:R,G,B, SPD:XXX) over Wi‑Fi (HTTP and/or WebSocket) with request/ack handling, timeouts, and user-visible error feedback.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-live-machine-status-dashboard-ui-showing-current-x-y-position-current-pattern-name-progress-percent-with-progress-bar-machine-state-running-paused-homing-idle-and-error-alerts-limit-switch-triggered-sd-card-missing-motor-fault",
+      "title": "Implement a Live Machine Status Dashboard UI showing current X-Y position, current pattern name, progress percent with progress bar, machine state (Running/Paused/Homing/Idle), and error alerts (limit switch triggered, SD card missing, motor fault).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-led-lighting-control-screen-with-on-off-toggle-rgb-hsv-color-picker-brightness-slider-preset-modes-static-breathing-rainbow-cycle-pattern-synced-and-the-ability-to-save-lighting-presets-per-pattern",
+      "title": "Create an LED Lighting Control screen with: On/Off toggle, RGB/HSV color picker, brightness slider, preset modes (Static, Breathing, Rainbow cycle, Pattern-synced), and the ability to save lighting presets per pattern.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-custom-pattern-creation-tooling-with-three-inputs-1-freehand-sketch-canvas-2-image-upload-and-3-text-prompt-input-generate-a-g-code-preview-using-local-deterministic-algorithms-no-external-ai-services-and-allow-speed-scale-adjustments-before-sending-saving",
+      "title": "Implement Custom Pattern Creation tooling with three inputs: (1) freehand sketch canvas, (2) image upload, and (3) text prompt input; generate a G-code preview using local, deterministic algorithms (no external AI services) and allow speed & scale adjustments before sending/saving.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-pattern-preview-simulation-component-that-renders-the-toolpath-svg-canvas-for-both-predefined-patterns-when-preview-data-is-available-and-custom-generated-patterns-including-an-animated-playback-scrubber",
+      "title": "Add a pattern preview/simulation component that renders the toolpath (SVG/canvas) for both predefined patterns (when preview data is available) and custom-generated patterns, including an animated playback scrubber.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-simple-optional-cloud-patterns-storage-in-the-motoko-backend-canister-to-save-and-list-user-created-patterns-name-createdat-optional-thumbnail-g-code-text-and-per-pattern-led-presets-integrate-the-frontend-to-read-write-this-data",
+      "title": "Implement a simple optional 'Cloud patterns' storage in the Motoko backend canister to save and list user-created patterns (name, createdAt, optional thumbnail, G-code text) and per-pattern LED presets; integrate the frontend to read/write this data.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-safety-recovery-ux-flows-confirm-dialogs-home-stop-during-run-clear-machine-state-aware-disabling-of-risky-actions-and-an-auto-resume-workflow-that-restores-the-last-known-running-pattern-session-state-after-an-app-reload-and-surfaces-resume-to-the-user",
+      "title": "Implement Safety & Recovery UX flows: confirm dialogs (Home, Stop during run), clear machine-state-aware disabling of risky actions, and an auto-resume workflow that restores the last known running pattern/session state after an app reload (and surfaces 'Resume?' to the user).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-produce-in-repo-documentation-deliverables-an-app-architecture-diagram-screen-by-screen-ui-breakdown-controller-api-command-protocol-spec-error-handling-strategy-and-a-brief-description-of-the-g-code-generation-approach-used-for-sketch-image-prompt-inputs",
+      "title": "Produce in-repo documentation deliverables: an app architecture diagram, screen-by-screen UI breakdown, controller API/command protocol spec, error handling strategy, and a brief description of the G-code generation approach used for sketch/image/prompt inputs.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Pattern Control Module: scrollable pattern gallery (SD card + optional cloud) with thumbnails/duration and controls (start/pause/stop/home/retrace).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "AI-assisted Custom Pattern Creation: freehand sketch, image upload (image→path→G-code), and text-prompt generation with simulation preview plus speed/scale adjustment.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "LED Lighting Control: RGB/HSV picker, on/off, brightness, preset modes (static/breathing/rainbow/pattern-synced), and per-pattern lighting presets.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Live Machine Status Dashboard: real-time XY position, current pattern, progress %, state (running/paused/homing/idle), and error alerts (limit switch/SD missing/motor fault).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Communication Layer: Wi‑Fi (HTTP/WebSocket) preferred and Bluetooth serial fallback; define command protocol (e.g., R/S/H/P<n>/LED:R,G,B/SPD:XXX).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Safety & Recovery: always-visible emergency stop, confirm dialogs for risky actions, retrace logic to avoid pattern destruction, and auto-resume after power loss.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "UI/UX & Deliverables: premium minimal UI with dark mode, tablet-friendly layout, animations & haptics; produce architecture diagram, screen-by-screen breakdown, API/protocol, and wireframes.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Sand Table Control Application",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

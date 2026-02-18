@@ -1,0 +1,274 @@
+{
+  "kind": "build_request",
+  "title": "Sand Table Control Web App (Mobile-Friendly) with Pattern Gallery, Custom G-code Tools, LED Control, Status Dashboard, and Controller Comms",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a coherent, modern visual theme for the app (clean, minimal, premium) with consistent typography, spacing, and components; include dark mode and a responsive layout that works well on phones and wall-mounted tablets.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "🎨 UI / UX Requirements\n\nClean, minimal, premium look\n\nDark mode support\n\nTablet-friendly layout (for wall-mounted tablets)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App has a consistent design system applied across all screens (colors, type scale, spacing, component variants).",
+        "Dark mode can be toggled (or follows system) and is visually complete (no unreadable text).",
+        "Layout adapts gracefully between small mobile widths and tablet widths (no horizontal scrolling, key controls remain accessible)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement app navigation and screen structure for: Pattern Gallery, Pattern Detail/Run Control, Custom Pattern Creator, LED Control, Live Status Dashboard, and Settings/Connection.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "🧩 Core Features to Implement\n1️⃣ Pattern Control Module",
+          "2️⃣ Custom Pattern Creation (AI-Assisted)",
+          "3️⃣ LED Lighting Control",
+          "4️⃣ Live Machine Status Dashboard",
+          "5️⃣ Communication Layer"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can navigate between all primary screens from a persistent navigation element suitable for mobile and tablet.",
+        "Each screen has clear titles and uses English for all user-facing text.",
+        "Routing/state is preserved when switching screens (e.g., selected pattern remains selected)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build the Pattern Gallery UI as a scrollable grid/list of pattern tiles showing pattern name, thumbnail preview, and estimated duration; support filtering/sorting by name and duration.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Display a scrollable pattern gallery",
+          "Each pattern tile shows:\n\nPattern name\n\nThumbnail preview\n\nEstimated duration"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Pattern gallery renders at least a default set of sample patterns when no controller/cloud is connected (placeholder dataset).",
+        "Each tile displays name, thumbnail, and duration in a readable layout on mobile and tablet.",
+        "Filtering/sorting updates the visible list without page reload."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement Pattern Run Controls per pattern: Start, Pause, Stop, Home, and Retrace; include confirmation dialogs for risky actions (Home, Stop during run) and an always-visible Emergency Stop control.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Controls per pattern:\n\n▶ Start\n\n⏸ Pause\n\n⏹ Stop\n\n🏠 Home\n\n🔁 Retrace without destroying sand",
+          "Emergency stop button (always visible)",
+          "Confirm dialogs for:\n\nHome\n\nStop during run"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Start/Pause/Stop/Home/Retrace actions are available from a pattern detail/run screen (and/or quick actions on tiles) and are clearly labeled in English.",
+        "Home and Stop-while-running require a confirmation dialog before sending the command.",
+        "Emergency Stop is always accessible (persistent UI element) and triggers the configured stop/emergency command path.",
+        "UI disables or adjusts controls based on machine state (e.g., Pause disabled when Idle)."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add a Connection Setup flow that lets users configure and test controller connectivity over Wi‑Fi: (a) HTTP base URL and (b) optional WebSocket URL; include connection status indicator and last error message.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Support:\n\nWi-Fi (preferred) using HTTP / WebSocket"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can enter and save an HTTP base URL and (optionally) a WebSocket URL in Settings/Connection.",
+        "App shows Connected/Disconnected/Connecting status and displays the last connection error in a readable way.",
+        "A 'Test Connection' action performs a simple request and reports success/failure."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Define and implement a controller command protocol layer in the frontend that can send the specified commands (R, S, H, P<n>, LED:R,G,B, SPD:XXX) over Wi‑Fi (HTTP and/or WebSocket) with request/ack handling, timeouts, and user-visible error feedback.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Command examples:\n\nR → Run\n\nS → Stop\n\nH → Home\n\nP<n> → Select pattern\n\nLED:R,G,B\n\nSPD:XXX"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A single command-sending interface is used by Pattern controls, LED controls, and speed controls (no duplicated ad-hoc networking logic).",
+        "Commands time out gracefully and show an error toast/banner without crashing the app.",
+        "At least one Wi‑Fi transport (HTTP) is implemented end-to-end; WebSocket support is implemented if a WS URL is provided and the browser supports it."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Implement a Live Machine Status Dashboard UI showing current X-Y position, current pattern name, progress percent with progress bar, machine state (Running/Paused/Homing/Idle), and error alerts (limit switch triggered, SD card missing, motor fault).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "4️⃣ Live Machine Status Dashboard\n\nShow real-time data:\n\nCurrent X-Y position\n\nCurrent pattern name\n\nProgress bar (% complete)\n\nMachine state:\n\nRunning\n\nPaused\n\nHoming\n\nIdle\n\nError alerts:\n\nLimit switch triggered\n\nSD card missing\n\nMotor fault"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dashboard displays all requested fields with clear labels and units/formatting.",
+        "When an error alert is present, it is visually prominent and persists until cleared by status updates.",
+        "If real-time streaming is unavailable, dashboard falls back to periodic polling and indicates update freshness (e.g., 'Last updated: …')."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Create an LED Lighting Control screen with: On/Off toggle, RGB/HSV color picker, brightness slider, preset modes (Static, Breathing, Rainbow cycle, Pattern-synced), and the ability to save lighting presets per pattern.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "3️⃣ LED Lighting Control\n\nProvide full RGB LED control:\n\nOn / Off toggle\n\nColor picker (RGB / HSV)\n\nPreset modes:\n\nStatic color\n\nBreathing\n\nRainbow cycle\n\nPattern-synced lighting\n\nBrightness slider\n\nSave lighting presets per pattern"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can toggle LEDs on/off and adjust color and brightness; changes send the appropriate LED command(s) over the command layer.",
+        "Mode selection UI exists for the four preset modes and sends mode changes over the command layer (using an agreed command string format documented in-app/dev docs).",
+        "User can save a lighting preset associated with a specific pattern and later re-apply it with one action."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Implement Custom Pattern Creation tooling with three inputs: (1) freehand sketch canvas, (2) image upload, and (3) text prompt input; generate a G-code preview using local, deterministic algorithms (no external AI services) and allow speed & scale adjustments before sending/saving.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Allow users to create their own sand designs using:\n\n🖊️ Freehand sketch (draw on phone screen)\n\n📷 Image upload (convert image → path → G-code)\n\n✍️ Text prompt input (AI-generated patterns)",
+          "AI should:\n\nConvert sketches / images / prompts into optimized G-code\n\nSimulate the pattern preview before execution\n\nAllow speed & scale adjustment"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Freehand sketch tool supports draw/erase/clear and produces a vector path suitable for conversion.",
+        "Image upload accepts common formats (PNG/JPG) and produces a simplified path suitable for conversion.",
+        "Text prompt input maps to a set of built-in parametric generators (e.g., spiral/mandala/lotus-like) and produces a preview without calling external AI APIs.",
+        "User can adjust speed and scale and see preview updates before exporting/sending.",
+        "Generated output is valid G-code text and can be exported (download) and/or sent to the controller via the command layer."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Add a pattern preview/simulation component that renders the toolpath (SVG/canvas) for both predefined patterns (when preview data is available) and custom-generated patterns, including an animated playback scrubber.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Simulate the pattern preview before execution"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Preview renders the toolpath clearly in both light and dark modes.",
+        "User can play/pause the preview animation and scrub to different progress percentages.",
+        "Preview performance remains smooth for typical pattern sizes (no UI lockup)."
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Implement a simple optional 'Cloud patterns' storage in the Motoko backend canister to save and list user-created patterns (name, createdAt, optional thumbnail, G-code text) and per-pattern LED presets; integrate the frontend to read/write this data.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Patterns stored:\n\nOn SD card (controller side)\n\nCloud (optional)",
+          "Save lighting presets per pattern"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes methods to create/list/get/delete custom patterns and to store/retrieve per-pattern LED presets.",
+        "Frontend can show a 'Cloud' source tab/section that lists patterns stored in the canister.",
+        "Data persists across refreshes (canister stable storage) for the same Internet Identity user."
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Implement Safety & Recovery UX flows: confirm dialogs (Home, Stop during run), clear machine-state-aware disabling of risky actions, and an auto-resume workflow that restores the last known running pattern/session state after an app reload (and surfaces 'Resume?' to the user).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "6️⃣ Safety & Recovery\n\nEmergency stop button (always visible)\n\nAuto-resume after power loss\n\nConfirm dialogs for:\n\nHome\n\nStop during run"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If the app reloads while a run is in progress (based on stored session + refreshed status), the UI prompts the user to resume or stop.",
+        "Risky actions always require confirmation and are clearly described in English.",
+        "UI behavior is consistent with reported machine state (e.g., cannot 'Start' while Homing unless explicitly allowed)."
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Produce in-repo documentation deliverables: an app architecture diagram, screen-by-screen UI breakdown, controller API/command protocol spec, error handling strategy, and a brief description of the G-code generation approach used for sketch/image/prompt inputs.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "📦 Deliverables Expected\n\nApp architecture diagram\n\nScreen-by-screen UI breakdown\n\nAPI / command protocol\n\nSample UI wireframes\n\nG-code generation logic\n\nLED control logic\n\nAI prompt handling flow\n\nError handling strategy"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Docs exist in a dedicated docs location in the repo and are discoverable from a top-level index (e.g., docs/README).",
+        "Architecture diagram clearly shows: frontend, Motoko canister (optional cloud storage), and controller (ESP32/Arduino) communication paths.",
+        "Protocol spec enumerates commands, parameters, expected responses/acks, and error codes/messages handling.",
+        "UI breakdown lists each screen, key components, and primary user flows; includes at least low-fidelity wireframes (text/ASCII or image assets)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend must be React + TypeScript with Tailwind/Shadcn components; do not edit files under frontend/src/components/ui (compose them instead).",
+    "Backend must be a single Motoko actor (no additional backend services).",
+    "Do not implement third-party authentication; use Internet Identity if authentication is required for cloud storage.",
+    "Do not integrate external AI/LLM services (e.g., OpenAI) or external databases; custom pattern generation must be local/deterministic."
+  ],
+  "nonGoals": [
+    "Building or flashing ESP32/Arduino firmware within this project.",
+    "Native mobile apps (Flutter/React Native) distribution; the deliverable is a mobile-friendly web app.",
+    "True Bluetooth serial integration if it requires native mobile capabilities; any Bluetooth support is limited to what is feasible via browser APIs and can be deferred if unsupported.",
+    "Voice control, scheduled runs, multi-table support, and social/cloud sharing beyond basic canister-backed storage are out of scope for this build."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimal premium app logo mark, sand-table themed abstract lines (app-logo.dim_512x512.png)",
+      "Empty state illustration showing a stylized sand table with a path line (empty-patterns.dim_1200x800.png)",
+      "Set of simple line icons for Start/Pause/Stop/Home/Retrace/E-Stop (control-icons.dim_512x512.png)"
+    ],
+    "edits": []
+  }
+}

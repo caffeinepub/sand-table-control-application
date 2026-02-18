@@ -1,0 +1,213 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-10T09:43:37.525Z",
+  "summary": "The diff adds a React+TS app shell with TanStack Router routes for all primary screens, next-themes dark-mode support, global Toaster, connection settings UI (HTTP/WS + test), several creator tools (sketch canvas, image upload, prompt generator, speed/scale controls, G-code preview download/send), a dashboard UI component set (status cards, progress, error alerts), an LED control panel (power/color/brightness/mode) that sends LED commands via a shared command hook, and a Motoko backend actor for user profiles and pattern CRUD with ownership/authorization checks. However, many BuildRequest requirements cannot be confirmed from the provided diff summary (pages, stores, hooks, docs, assets, stable persistence, per-pattern LED preset storage, run control confirmations, etc.).",
+  "missing_requirements": [
+    {
+      "id": "REQ-3",
+      "requirement": "Pattern Gallery UI with scrollable grid/list tiles (name, thumbnail, duration) and filtering/sorting by name and duration, including a default sample dataset when disconnected.",
+      "reason": "Routing to a PatternGalleryPage exists, but no evidence is shown for gallery tile rendering, thumbnail/duration display, default sample patterns, or filtering/sorting behavior.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Pattern Run Controls (Start/Pause/Stop/Home/Retrace) with confirmation dialogs for Home and Stop-while-running, plus an always-visible Emergency Stop and machine-state-aware disabling.",
+      "reason": "AppShell references an EmergencyStopFab, but no evidence is shown for run control buttons, confirmations, or machine-state-aware enabling/disabling logic.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppShell.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Connection setup flow must include connection status indicator and last error message, plus saving HTTP/WS URLs and a Test Connection action.",
+      "reason": "The form supports saving URLs and testing; a separate status badge component exists, but the diff does not show the Settings/Connection page composing these pieces together or persistence details (e.g., localStorage).",
+      "evidence": [
+        "frontend/src/components/connection/ConnectionForm.tsx",
+        "frontend/src/components/connection/ConnectionStatusBadge.tsx",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Frontend controller command protocol layer that sends commands (R, S, H, P<n>, LED:R,G,B, SPD:XXX) over HTTP and/or WebSocket with ack/timeout handling and user-visible errors; shared across pattern/LED/speed.",
+      "reason": "Components call useCommandClient().sendCommand(), but the diff does not include the command layer implementation, transports (HTTP/WS), or any ack/timeout behavior; also no evidence of required command strings (R/S/H/P<n>/SPD:XXX) being sent.",
+      "evidence": [
+        "frontend/src/components/creator/GCodePreviewPanel.tsx",
+        "frontend/src/components/led/LedControlPanel.tsx"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Live Status Dashboard UI showing X-Y position, current pattern name, progress percent with progress bar, machine state, and error alerts; polling fallback and update freshness indicator.",
+      "reason": "UI components exist for position/pattern/state/last-updated, progress bar, and error alerts, but the diff does not show the Dashboard page wiring to real status data, polling/streaming fallback, or freshness behavior beyond a lastUpdated prop.",
+      "evidence": [
+        "frontend/src/components/dashboard/StatusCards.tsx",
+        "frontend/src/components/dashboard/ProgressPanel.tsx",
+        "frontend/src/components/dashboard/ErrorAlerts.tsx",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "LED Lighting Control with on/off, RGB/HSV picker, brightness, preset modes (Static/Breathing/Rainbow/Pattern-synced), and saving/reapplying per-pattern LED presets.",
+      "reason": "LED power/color/brightness and a mode selector are present, but there is no evidence of HSV controls, per-pattern preset save/reapply flows, or storage (frontend or backend) for presets.",
+      "evidence": [
+        "frontend/src/components/led/LedControlPanel.tsx",
+        "frontend/src/components/led/ColorPicker.tsx",
+        "frontend/src/components/led/BrightnessSlider.tsx"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Custom Pattern Creator with freehand sketch (draw/erase/clear producing vector path), image upload vectorization, text prompt mapped to built-in generators, deterministic local G-code generation, speed & scale adjustments with preview updates, and export/download and/or send via command layer.",
+      "reason": "Sketch/image/prompt inputs and speed/scale sliders exist, and a G-code preview panel exists (download/send). But the diff does not show the deterministic path-to-G-code conversion logic, preview updating based on speed/scale, or that generated output is valid G-code (vs placeholder).",
+      "evidence": [
+        "frontend/src/components/creator/SketchCanvas.tsx",
+        "frontend/src/components/creator/ImageUploadVectorizer.tsx",
+        "frontend/src/components/creator/PromptPatternGenerator.tsx",
+        "frontend/src/components/creator/SpeedScaleControls.tsx",
+        "frontend/src/components/creator/GCodePreviewPanel.tsx"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "Pattern preview/simulation component rendering toolpath (SVG/canvas) for predefined and custom patterns with animated playback + scrubber.",
+      "reason": "No preview/simulation renderer or playback/scrubber component is shown in the diff summary.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "requirement": "Motoko backend canister 'Cloud patterns' storage: create/list/get/delete custom patterns and store/retrieve per-pattern LED presets; stable storage persistence; frontend integration with a Cloud tab/section and Internet Identity user scoping.",
+      "reason": "Backend shows pattern CRUD types including an optional ledPresets field, and frontend includes Internet Identity login/profile, but the diff does not show stable storage usage (stable vars / preupgrade/postupgrade), explicit LED preset get/set APIs, or any frontend UI to list/switch to 'Cloud' patterns and read/write canister data.",
+      "evidence": [
+        "backend/main.mo",
+        "backend/pattern.mo",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "requirement": "Safety & Recovery UX: confirmations for risky actions, machine-state-aware disabling, and auto-resume workflow after reload prompting Resume/Stop.",
+      "reason": "AppShell references ResumePromptDialog (suggesting resume UX), but no evidence is shown for persisting session state, checking machine status on reload, or confirmations/disablement logic for run controls.",
+      "evidence": [
+        "frontend/src/components/layout/AppShell.tsx"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "requirement": "In-repo docs: architecture diagram, UI breakdown with wireframes, controller protocol spec, error handling strategy, and G-code generation approach description; discoverable from docs/README.",
+      "reason": "No documentation files are shown in the diff summary.",
+      "evidence": []
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "User profile management (get/save profiles) and a forced profile-setup modal.",
+      "reason": "The BuildRequest focuses on patterns/controls/storage; it does not request user profiles or a profile setup flow.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/auth/ProfileSetupModal.tsx"
+      ]
+    },
+    {
+      "description": "Custom authorization/permission system with admin/user roles and ownership enforcement beyond Internet Identity authentication.",
+      "reason": "BuildRequest specifies using Internet Identity if authentication is required for cloud storage, but does not request a separate access-control subsystem with admin roles and permission checks/traps.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Non-specified controller command string for uploading G-code (\"UPLOAD:<gcode>\").",
+      "reason": "REQ-6 lists required commands (R, S, H, P<n>, LED:R,G,B, SPD:XXX); an UPLOAD command format is not mentioned.",
+      "evidence": [
+        "frontend/src/components/creator/GCodePreviewPanel.tsx"
+      ]
+    },
+    {
+      "description": "Extended LED command format that includes brightness and mode in the same LED command (\"LED:r,g,b,brightness,mode\").",
+      "reason": "REQ-6 specifies LED:R,G,B; REQ-8 allows mode changes via an agreed format documented in docs, but no doc evidence is shown here and the implemented format goes beyond the specified base command.",
+      "evidence": [
+        "frontend/src/components/led/LedControlPanel.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "backend/pattern.mo",
+    "frontend/docs/README.md",
+    "frontend/docs/architecture.md",
+    "frontend/docs/controller-protocol.md",
+    "frontend/docs/error-handling.md",
+    "frontend/docs/gcode-generation.md",
+    "frontend/docs/ui-breakdown.md",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/branding/AppLogo.tsx",
+    "frontend/src/components/connection/ConnectionForm.tsx",
+    "frontend/src/components/connection/ConnectionStatusBadge.tsx",
+    "frontend/src/components/creator/GCodePreviewPanel.tsx",
+    "frontend/src/components/creator/ImageUploadVectorizer.tsx",
+    "frontend/src/components/creator/PromptPatternGenerator.tsx",
+    "frontend/src/components/creator/SketchCanvas.tsx",
+    "frontend/src/components/creator/SpeedScaleControls.tsx",
+    "frontend/src/components/dashboard/ErrorAlerts.tsx",
+    "frontend/src/components/dashboard/ProgressPanel.tsx",
+    "frontend/src/components/dashboard/StatusCards.tsx",
+    "frontend/src/components/layout/AppShell.tsx",
+    "frontend/src/components/led/BrightnessSlider.tsx",
+    "frontend/src/components/led/ColorPicker.tsx",
+    "frontend/src/components/led/LedControlPanel.tsx",
+    "frontend/src/components/led/LedModeSelector.tsx",
+    "frontend/src/components/navigation/PrimaryNav.tsx",
+    "frontend/src/components/patterns/PatternGallery.tsx",
+    "frontend/src/components/patterns/PatternSourceTabs.tsx",
+    "frontend/src/components/patterns/PatternTile.tsx",
+    "frontend/src/components/preview/PatternPreview.tsx",
+    "frontend/src/components/preview/PlaybackScrubber.tsx",
+    "frontend/src/components/preview/ToolpathRenderer.tsx",
+    "frontend/src/components/run/RunControls.tsx",
+    "frontend/src/components/safety/ConfirmDialog.tsx",
+    "frontend/src/components/safety/EmergencyStopFab.tsx",
+    "frontend/src/components/safety/ResumePromptDialog.tsx",
+    "frontend/src/components/theme/ThemeToggle.tsx",
+    "frontend/src/controller/commandClient.ts",
+    "frontend/src/controller/protocol.ts",
+    "frontend/src/controller/statusClient.ts",
+    "frontend/src/controller/transports/httpTransport.ts",
+    "frontend/src/controller/transports/websocketTransport.ts",
+    "frontend/src/data/samplePatterns.ts",
+    "frontend/src/gcode/gcodeGenerator.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useCommandClient.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useMachineStatus.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/utils.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/CustomPatternCreatorPage.tsx",
+    "frontend/src/pages/DashboardPage.tsx",
+    "frontend/src/pages/LedControlPage.tsx",
+    "frontend/src/pages/PatternGalleryPage.tsx",
+    "frontend/src/pages/PatternRunPage.tsx",
+    "frontend/src/pages/SettingsConnectionPage.tsx",
+    "frontend/src/state/connectionStore.ts",
+    "frontend/src/state/ledPresetsStore.ts",
+    "frontend/src/state/runSessionStore.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}
