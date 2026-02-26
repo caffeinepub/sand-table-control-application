@@ -1,0 +1,315 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-coherent-modern-visual-theme-for-the-app-clean-minimal-premium-with-consistent-typography-spacing-and-components-include-dark-mode-and-a-responsive-layout-that-works-well-on-phones-and-wall-mounted-tablets",
+      "featureTitle": "Create a coherent, modern visual theme for the app (clean, minimal, premium) with consistent typography, spacing, and components; include dark mode and a responsive layout that works well on phones and wall-mounted tablets.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/src/components/theme/ThemeToggle.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-app-navigation-and-screen-structure-for-pattern-gallery-pattern-detail-run-control-custom-pattern-creator-led-control-live-status-dashboard-and-settings-connection",
+      "featureTitle": "Implement app navigation and screen structure for: Pattern Gallery, Pattern Detail/Run Control, Custom Pattern Creator, LED Control, Live Status Dashboard, and Settings/Connection.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/navigation/PrimaryNav.tsx",
+        "frontend/src/pages/CustomPatternCreatorPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LedControlPage.tsx",
+        "frontend/src/pages/PatternGalleryPage.tsx",
+        "frontend/src/pages/PatternRunPage.tsx",
+        "frontend/src/pages/SettingsConnectionPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-the-pattern-gallery-ui-as-a-scrollable-grid-list-of-pattern-tiles-showing-pattern-name-thumbnail-preview-and-estimated-duration-support-filtering-sorting-by-name-and-duration",
+      "featureTitle": "Build the Pattern Gallery UI as a scrollable grid/list of pattern tiles showing pattern name, thumbnail preview, and estimated duration; support filtering/sorting by name and duration.",
+      "files": [
+        "frontend/src/components/patterns/PatternGallery.tsx",
+        "frontend/src/components/patterns/PatternTile.tsx",
+        "frontend/src/data/samplePatterns.ts",
+        "frontend/src/pages/PatternGalleryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-pattern-run-controls-per-pattern-start-pause-stop-home-and-retrace-include-confirmation-dialogs-for-risky-actions-home-stop-during-run-and-an-always-visible-emergency-stop-control",
+      "featureTitle": "Implement Pattern Run Controls per pattern: Start, Pause, Stop, Home, and Retrace; include confirmation dialogs for risky actions (Home, Stop during run) and an always-visible Emergency Stop control.",
+      "files": [
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/src/components/run/RunControls.tsx",
+        "frontend/src/components/safety/ConfirmDialog.tsx",
+        "frontend/src/components/safety/EmergencyStopFab.tsx",
+        "frontend/src/pages/PatternRunPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-connection-setup-flow-that-lets-users-configure-and-test-controller-connectivity-over-wi-fi-a-http-base-url-and-b-optional-websocket-url-include-connection-status-indicator-and-last-error-message",
+      "featureTitle": "Add a Connection Setup flow that lets users configure and test controller connectivity over Wi‑Fi: (a) HTTP base URL and (b) optional WebSocket URL; include connection status indicator and last error message.",
+      "files": [
+        "frontend/src/components/connection/ConnectionForm.tsx",
+        "frontend/src/components/connection/ConnectionStatusBadge.tsx",
+        "frontend/src/pages/SettingsConnectionPage.tsx",
+        "frontend/src/state/connectionStore.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-define-and-implement-a-controller-command-protocol-layer-in-the-frontend-that-can-send-the-specified-commands-r-s-h-p-n-led-r-g-b-spd-xxx-over-wi-fi-http-and-or-websocket-with-request-ack-handling-timeouts-and-user-visible-error-feedback",
+      "featureTitle": "Define and implement a controller command protocol layer in the frontend that can send the specified commands (R, S, H, P<n>, LED:R,G,B, SPD:XXX) over Wi‑Fi (HTTP and/or WebSocket) with request/ack handling, timeouts, and user-visible error feedback.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/connection/ConnectionForm.tsx",
+        "frontend/src/controller/commandClient.ts",
+        "frontend/src/controller/protocol.ts",
+        "frontend/src/controller/transports/httpTransport.ts",
+        "frontend/src/controller/transports/websocketTransport.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-live-machine-status-dashboard-ui-showing-current-x-y-position-current-pattern-name-progress-percent-with-progress-bar-machine-state-running-paused-homing-idle-and-error-alerts-limit-switch-triggered-sd-card-missing-motor-fault",
+      "featureTitle": "Implement a Live Machine Status Dashboard UI showing current X-Y position, current pattern name, progress percent with progress bar, machine state (Running/Paused/Homing/Idle), and error alerts (limit switch triggered, SD card missing, motor fault).",
+      "files": [
+        "frontend/src/components/dashboard/ErrorAlerts.tsx",
+        "frontend/src/components/dashboard/ProgressPanel.tsx",
+        "frontend/src/components/dashboard/StatusCards.tsx",
+        "frontend/src/controller/statusClient.ts",
+        "frontend/src/hooks/useMachineStatus.ts",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-an-led-lighting-control-screen-with-on-off-toggle-rgb-hsv-color-picker-brightness-slider-preset-modes-static-breathing-rainbow-cycle-pattern-synced-and-the-ability-to-save-lighting-presets-per-pattern",
+      "featureTitle": "Create an LED Lighting Control screen with: On/Off toggle, RGB/HSV color picker, brightness slider, preset modes (Static, Breathing, Rainbow cycle, Pattern-synced), and the ability to save lighting presets per pattern.",
+      "files": [
+        "frontend/src/components/led/BrightnessSlider.tsx",
+        "frontend/src/components/led/ColorPicker.tsx",
+        "frontend/src/components/led/LedControlPanel.tsx",
+        "frontend/src/components/led/LedModeSelector.tsx",
+        "frontend/src/pages/LedControlPage.tsx",
+        "frontend/src/pages/PatternRunPage.tsx",
+        "frontend/src/state/ledPresetsStore.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-custom-pattern-creation-tooling-with-three-inputs-1-freehand-sketch-canvas-2-image-upload-and-3-text-prompt-input-generate-a-g-code-preview-using-local-deterministic-algorithms-no-external-ai-services-and-allow-speed-scale-adjustments-before-sending-saving",
+      "featureTitle": "Implement Custom Pattern Creation tooling with three inputs: (1) freehand sketch canvas, (2) image upload, and (3) text prompt input; generate a G-code preview using local, deterministic algorithms (no external AI services) and allow speed & scale adjustments before sending/saving.",
+      "files": [
+        "frontend/src/components/creator/GCodePreviewPanel.tsx",
+        "frontend/src/components/creator/ImageUploadVectorizer.tsx",
+        "frontend/src/components/creator/PromptPatternGenerator.tsx",
+        "frontend/src/components/creator/SketchCanvas.tsx",
+        "frontend/src/components/creator/SpeedScaleControls.tsx",
+        "frontend/src/gcode/gcodeGenerator.ts",
+        "frontend/src/pages/CustomPatternCreatorPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-pattern-preview-simulation-component-that-renders-the-toolpath-svg-canvas-for-both-predefined-patterns-when-preview-data-is-available-and-custom-generated-patterns-including-an-animated-playback-scrubber",
+      "featureTitle": "Add a pattern preview/simulation component that renders the toolpath (SVG/canvas) for both predefined patterns (when preview data is available) and custom-generated patterns, including an animated playback scrubber.",
+      "files": [
+        "frontend/src/components/preview/PatternPreview.tsx",
+        "frontend/src/components/preview/PlaybackScrubber.tsx",
+        "frontend/src/components/preview/ToolpathRenderer.tsx",
+        "frontend/src/pages/CustomPatternCreatorPage.tsx",
+        "frontend/src/pages/PatternRunPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-simple-optional-cloud-patterns-storage-in-the-motoko-backend-canister-to-save-and-list-user-created-patterns-name-createdat-optional-thumbnail-g-code-text-and-per-pattern-led-presets-integrate-the-frontend-to-read-write-this-data",
+      "featureTitle": "Implement a simple optional 'Cloud patterns' storage in the Motoko backend canister to save and list user-created patterns (name, createdAt, optional thumbnail, G-code text) and per-pattern LED presets; integrate the frontend to read/write this data.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/components/patterns/PatternSourceTabs.tsx",
+        "frontend/src/pages/CustomPatternCreatorPage.tsx",
+        "frontend/src/pages/LedControlPage.tsx",
+        "frontend/src/pages/PatternGalleryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-safety-recovery-ux-flows-confirm-dialogs-home-stop-during-run-clear-machine-state-aware-disabling-of-risky-actions-and-an-auto-resume-workflow-that-restores-the-last-known-running-pattern-session-state-after-an-app-reload-and-surfaces-resume-to-the-user",
+      "featureTitle": "Implement Safety & Recovery UX flows: confirm dialogs (Home, Stop during run), clear machine-state-aware disabling of risky actions, and an auto-resume workflow that restores the last known running pattern/session state after an app reload (and surfaces 'Resume?' to the user).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/run/RunControls.tsx",
+        "frontend/src/components/safety/ResumePromptDialog.tsx",
+        "frontend/src/pages/PatternRunPage.tsx",
+        "frontend/src/state/runSessionStore.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-produce-in-repo-documentation-deliverables-an-app-architecture-diagram-screen-by-screen-ui-breakdown-controller-api-command-protocol-spec-error-handling-strategy-and-a-brief-description-of-the-g-code-generation-approach-used-for-sketch-image-prompt-inputs",
+      "featureTitle": "Produce in-repo documentation deliverables: an app architecture diagram, screen-by-screen UI breakdown, controller API/command protocol spec, error handling strategy, and a brief description of the G-code generation approach used for sketch/image/prompt inputs.",
+      "files": [
+        "frontend/docs/README.md",
+        "frontend/docs/architecture.md",
+        "frontend/docs/controller-protocol.md",
+        "frontend/docs/error-handling.md",
+        "frontend/docs/gcode-generation.md",
+        "frontend/docs/ui-breakdown.md",
+        "frontend/src/components/branding/AppLogo.tsx",
+        "frontend/src/components/layout/AppShell.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

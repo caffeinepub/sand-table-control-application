@@ -1,0 +1,569 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Sand Table Control Web App (Mobile-Friendly) — Frontend Implementation Plan",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Establish a cohesive premium design system with dark mode and responsive mobile/tablet layout.",
+      "acceptanceCriteria": [
+        "App has a consistent design system applied across all screens (colors, type scale, spacing, component variants).",
+        "Dark mode can be toggled (or follows system) and is visually complete (no unreadable text).",
+        "Layout adapts gracefully between small mobile widths and tablet widths (no horizontal scrolling, key controls remain accessible)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global Tailwind + CSS variables theme (light/dark), typography scale, spacing primitives, and app-wide base styles to achieve the clean/minimal/premium look. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "create",
+          "description": "Create an app shell layout component that standardizes page padding, headers, responsive containers, and safe-area handling for phones/tablets; ensure consistent screen composition across the app. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/theme/ThemeProvider.tsx",
+          "operation": "create",
+          "description": "Add a theme provider that controls dark mode (class-based) and persists user preference (with system fallback) for visually complete dark mode across all screens. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/theme/ThemeToggle.tsx",
+          "operation": "create",
+          "description": "Add a small theme toggle control suitable for both mobile and tablet headers/menus and integrate it with ThemeProvider. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create/replace the root App component to wrap the router with ThemeProvider/AppShell and ensure a consistent responsive layout is applied globally. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement routing and persistent navigation for Pattern Gallery, Pattern Detail/Run, Custom Creator, LED Control, Live Status Dashboard, and Settings/Connection.",
+      "acceptanceCriteria": [
+        "Users can navigate between all primary screens from a persistent navigation element suitable for mobile and tablet.",
+        "Each screen has clear titles and uses English for all user-facing text.",
+        "Routing/state is preserved when switching screens (e.g., selected pattern remains selected)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/routes/AppRouter.tsx",
+          "operation": "create",
+          "description": "Create the app router defining routes for Pattern Gallery, Pattern Detail/Run (with a pattern identifier in the route), Custom Pattern Creator, LED Control, Live Status Dashboard, and Settings/Connection; ensure route-based state preservation. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/navigation/PrimaryNav.tsx",
+          "operation": "create",
+          "description": "Create a persistent navigation component (bottom nav for mobile, side rail for tablets) linking to all primary screens, with clear English labels and active state styling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PatternGalleryPage.tsx",
+          "operation": "create",
+          "description": "Create the Pattern Gallery screen container with a clear title and integration to navigation/routing. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PatternRunPage.tsx",
+          "operation": "create",
+          "description": "Create the Pattern Detail/Run Control screen container (driven by route params) with a clear title and integration to navigation/routing. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/CustomPatternCreatorPage.tsx",
+          "operation": "create",
+          "description": "Create the Custom Pattern Creator screen container with a clear title and integration to navigation/routing. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/LedControlPage.tsx",
+          "operation": "create",
+          "description": "Create the LED Control screen container with a clear title and integration to navigation/routing. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "create",
+          "description": "Create the Live Status Dashboard screen container with a clear title and integration to navigation/routing. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/SettingsConnectionPage.tsx",
+          "operation": "create",
+          "description": "Create the Settings/Connection screen container with a clear title and integration to navigation/routing. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire AppRouter and PrimaryNav into the root app shell so all pages are reachable via persistent navigation on mobile/tablet. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build a scrollable Pattern Gallery with tiles showing name, thumbnail, duration, plus filtering/sorting by name/duration.",
+      "acceptanceCriteria": [
+        "Pattern gallery renders at least a default set of sample patterns when no controller/cloud is connected (placeholder dataset).",
+        "Each tile displays name, thumbnail, and duration in a readable layout on mobile and tablet.",
+        "Filtering/sorting updates the visible list without page reload."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/data/samplePatterns.ts",
+          "operation": "create",
+          "description": "Add a placeholder dataset of sample patterns (name, thumbnail reference, estimated duration, optional preview/toolpath metadata) used when no controller/cloud patterns are available. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/patterns/PatternTile.tsx",
+          "operation": "create",
+          "description": "Create a responsive pattern tile component that displays pattern name, thumbnail preview, and estimated duration in a readable mobile/tablet layout (compose shadcn-ui components; do not edit ui primitives). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/patterns/PatternGallery.tsx",
+          "operation": "create",
+          "description": "Create the scrollable grid/list gallery component with client-side filtering and sorting controls (name/duration) and no reload behavior. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PatternGalleryPage.tsx",
+          "operation": "modify",
+          "description": "Wire PatternGallery into the Pattern Gallery page; default to samplePatterns when controller/cloud sources are unavailable. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/public/assets/generated/empty-patterns.dim_1200x800.png",
+          "operation": "create",
+          "description": "Add the generated empty state illustration asset at this exact path and reference it from the Pattern Gallery empty state UI. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement per-pattern run controls with confirmations for risky actions and an always-visible Emergency Stop; controls must reflect machine state.",
+      "acceptanceCriteria": [
+        "Start/Pause/Stop/Home/Retrace actions are available from a pattern detail/run screen (and/or quick actions on tiles) and are clearly labeled in English.",
+        "Home and Stop-while-running require a confirmation dialog before sending the command.",
+        "Emergency Stop is always accessible (persistent UI element) and triggers the configured stop/emergency command path.",
+        "UI disables or adjusts controls based on machine state (e.g., Pause disabled when Idle)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/run/RunControls.tsx",
+          "operation": "create",
+          "description": "Create run control UI (Start/Pause/Stop/Home/Retrace) with state-aware enabled/disabled behavior and English labels; compose shadcn-ui dialogs for confirmations. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/safety/ConfirmDialog.tsx",
+          "operation": "create",
+          "description": "Create a reusable confirmation dialog wrapper for risky actions (Home, Stop during run) with clear English descriptions and consistent styling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/safety/EmergencyStopFab.tsx",
+          "operation": "create",
+          "description": "Create an always-visible Emergency Stop control (floating/persistent) that triggers the configured emergency command through the shared command layer. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PatternRunPage.tsx",
+          "operation": "modify",
+          "description": "Wire RunControls and pattern context into the Pattern Run screen; connect actions to the shared controller command layer and enforce confirmations for Home and Stop-while-running. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "modify",
+          "description": "Render EmergencyStopFab in the global layout so it remains accessible across all screens. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/public/assets/generated/control-icons.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated control icon set at this exact path and use it in RunControls and EmergencyStopFab for consistent premium visuals. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Create Settings/Connection flow for HTTP base URL and optional WebSocket URL with status indicator, last error, and Test Connection.",
+      "acceptanceCriteria": [
+        "User can enter and save an HTTP base URL and (optionally) a WebSocket URL in Settings/Connection.",
+        "App shows Connected/Disconnected/Connecting status and displays the last connection error in a readable way.",
+        "A 'Test Connection' action performs a simple request and reports success/failure."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/state/connectionStore.ts",
+          "operation": "create",
+          "description": "Implement a small persisted state store (e.g., localStorage-backed) for HTTP base URL, optional WebSocket URL, connection status, and last error message. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/connection/ConnectionStatusBadge.tsx",
+          "operation": "create",
+          "description": "Create a compact status badge (Connected/Disconnected/Connecting) that also exposes last error details in a readable way (popover/inline). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/connection/ConnectionForm.tsx",
+          "operation": "create",
+          "description": "Create a Settings/Connection form for entering/saving HTTP base URL and optional WebSocket URL and invoking Test Connection; compose shadcn-ui form components. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/SettingsConnectionPage.tsx",
+          "operation": "modify",
+          "description": "Wire ConnectionForm and ConnectionStatusBadge into the Settings/Connection screen and ensure status/error are visible and persist across refreshes. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement a unified frontend controller command protocol layer supporting required commands over HTTP and optional WebSocket with timeouts, ack handling, and user-visible errors.",
+      "acceptanceCriteria": [
+        "A single command-sending interface is used by Pattern controls, LED controls, and speed controls (no duplicated ad-hoc networking logic).",
+        "Commands time out gracefully and show an error toast/banner without crashing the app.",
+        "At least one Wi‑Fi transport (HTTP) is implemented end-to-end; WebSocket support is implemented if a WS URL is provided and the browser supports it."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/controller/protocol.ts",
+          "operation": "create",
+          "description": "Define the command strings and high-level protocol helpers for R, S, H, P<n>, LED:R,G,B, and SPD:XXX, including parsing/ack expectations and error normalization. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/controller/transports/httpTransport.ts",
+          "operation": "create",
+          "description": "Implement an HTTP transport that sends commands to the configured base URL with timeout and structured error reporting (no duplicated networking logic elsewhere). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/controller/transports/websocketTransport.ts",
+          "operation": "create",
+          "description": "Implement an optional WebSocket transport that is enabled only when a WS URL is provided and the browser supports it; include reconnect/backoff and timeout handling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/controller/commandClient.ts",
+          "operation": "create",
+          "description": "Create a single command-sending interface that selects transport (HTTP required; WebSocket optional) and provides request/ack handling and consistent errors for UI consumption. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/feedback/AppToaster.tsx",
+          "operation": "create",
+          "description": "Add a global toast/banner mechanism for user-visible networking/protocol errors and success messages; compose shadcn-ui feedback components. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the global AppToaster and ensure controller command errors are surfaced consistently without crashing the app. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/connection/ConnectionForm.tsx",
+          "operation": "modify",
+          "description": "Use the shared commandClient for Test Connection and display success/failure using the global toaster and last-error field. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Create a Live Status Dashboard showing position, current pattern, progress with bar, machine state, and prominent persistent error alerts with polling fallback.",
+      "acceptanceCriteria": [
+        "Dashboard displays all requested fields with clear labels and units/formatting.",
+        "When an error alert is present, it is visually prominent and persists until cleared by status updates.",
+        "If real-time streaming is unavailable, dashboard falls back to periodic polling and indicates update freshness (e.g., 'Last updated: …')."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/controller/statusClient.ts",
+          "operation": "create",
+          "description": "Implement a status retrieval layer that can poll for machine status (and optionally subscribe via WebSocket when available), returning normalized state, timestamps, and error alerts. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useMachineStatus.ts",
+          "operation": "create",
+          "description": "Create a React hook that consumes statusClient, manages polling/streaming fallback, exposes update freshness (last updated), and provides stable state for dashboards and control disabling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/dashboard/StatusCards.tsx",
+          "operation": "create",
+          "description": "Create dashboard UI cards for X-Y position, current pattern name, machine state, and last updated timestamp with responsive layout and premium styling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/dashboard/ProgressPanel.tsx",
+          "operation": "create",
+          "description": "Create a progress display with a progress bar and percent formatting that works in both light/dark themes. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/dashboard/ErrorAlerts.tsx",
+          "operation": "create",
+          "description": "Create a visually prominent, persistent error alerts panel for limit switch, SD missing, motor fault (and other reported alerts) that persists until cleared by new status updates. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Wire useMachineStatus into the Dashboard page and render StatusCards, ProgressPanel, and ErrorAlerts, including update freshness indication and polling fallback behavior. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Build LED Lighting Control with on/off, color picker, brightness, modes, and per-pattern preset save/apply integrated with the command layer.",
+      "acceptanceCriteria": [
+        "User can toggle LEDs on/off and adjust color and brightness; changes send the appropriate LED command(s) over the command layer.",
+        "Mode selection UI exists for the four preset modes and sends mode changes over the command layer (using an agreed command string format documented in-app/dev docs).",
+        "User can save a lighting preset associated with a specific pattern and later re-apply it with one action."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/led/ColorPicker.tsx",
+          "operation": "create",
+          "description": "Create an RGB/HSV color picker UI component suitable for touch devices (compose shadcn-ui components as needed) and output a normalized color representation used by the LED command mapping. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/led/LedModeSelector.tsx",
+          "operation": "create",
+          "description": "Create a mode selector UI for Static, Breathing, Rainbow cycle, and Pattern-synced modes, and map selections to documented command strings via the shared command layer. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/led/BrightnessSlider.tsx",
+          "operation": "create",
+          "description": "Create a brightness slider UI (touch-friendly) that drives LED command updates through the shared command layer. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/state/ledPresetsStore.ts",
+          "operation": "create",
+          "description": "Implement persisted client-side storage for LED presets per pattern (for local patterns) and helper methods to save/apply presets from the LED screen and Pattern Run screen. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/led/LedControlPanel.tsx",
+          "operation": "create",
+          "description": "Create the LED control panel combining on/off, ColorPicker, BrightnessSlider, and LedModeSelector; send changes through commandClient and display errors via the global toaster. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/LedControlPage.tsx",
+          "operation": "modify",
+          "description": "Wire LedControlPanel into the LED Control page and support selecting a pattern context to save/apply per-pattern presets. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PatternRunPage.tsx",
+          "operation": "modify",
+          "description": "Add quick access to apply the saved LED preset for the currently selected pattern (one action) and reflect changes via the shared command layer. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Implement Custom Pattern Creator with sketch, image upload, and text-prompt parametric generators; generate deterministic G-code with preview plus speed/scale controls and export/send.",
+      "acceptanceCriteria": [
+        "Freehand sketch tool supports draw/erase/clear and produces a vector path suitable for conversion.",
+        "Image upload accepts common formats (PNG/JPG) and produces a simplified path suitable for conversion.",
+        "Text prompt input maps to a set of built-in parametric generators (e.g., spiral/mandala/lotus-like) and produces a preview without calling external AI APIs.",
+        "User can adjust speed and scale and see preview updates before exporting/sending.",
+        "Generated output is valid G-code text and can be exported (download) and/or sent to the controller via the command layer."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/creator/SketchCanvas.tsx",
+          "operation": "create",
+          "description": "Create a touch-friendly sketch canvas with draw/erase/clear tools and export to a vector polyline/path representation for deterministic conversion. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/creator/ImageUploadVectorizer.tsx",
+          "operation": "create",
+          "description": "Create an image upload component (PNG/JPG) that raster-processes and traces/simplifies to a vector path suitable for deterministic conversion. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/creator/PromptPatternGenerator.tsx",
+          "operation": "create",
+          "description": "Create a text prompt input that maps to built-in parametric generators (spiral/mandala/lotus-like etc.) without any external AI/LLM calls; outputs a vector toolpath. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/gcode/gcodeGenerator.ts",
+          "operation": "create",
+          "description": "Implement deterministic vector-toolpath-to-G-code generation and support speed and scale transforms; ensure valid G-code output text for export/send. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/creator/SpeedScaleControls.tsx",
+          "operation": "create",
+          "description": "Create UI controls for speed and scale that recompute the preview toolpath/G-code deterministically and update the preview live. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/creator/GCodePreviewPanel.tsx",
+          "operation": "create",
+          "description": "Create a panel that shows generated G-code text (read-only), provides Download export, and provides Send-to-controller using the shared command layer (with error toasts). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/CustomPatternCreatorPage.tsx",
+          "operation": "modify",
+          "description": "Compose SketchCanvas, ImageUploadVectorizer, PromptPatternGenerator, SpeedScaleControls, and GCodePreviewPanel into a single workflow screen with clear English labels. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Add a toolpath preview/simulation renderer with animated playback and scrubber for predefined and custom patterns.",
+      "acceptanceCriteria": [
+        "Preview renders the toolpath clearly in both light and dark modes.",
+        "User can play/pause the preview animation and scrub to different progress percentages.",
+        "Preview performance remains smooth for typical pattern sizes (no UI lockup)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/preview/ToolpathRenderer.tsx",
+          "operation": "create",
+          "description": "Create an SVG/canvas toolpath renderer that draws the full path and a progress overlay for a given toolpath, styled to work in light/dark modes. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/preview/PlaybackScrubber.tsx",
+          "operation": "create",
+          "description": "Create playback controls (play/pause) and a scrubber slider that controls render progress percentage without blocking the UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/preview/PatternPreview.tsx",
+          "operation": "create",
+          "description": "Create a composite preview component combining ToolpathRenderer and PlaybackScrubber, with performance safeguards for typical pattern sizes. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PatternRunPage.tsx",
+          "operation": "modify",
+          "description": "Render PatternPreview on the Pattern Run screen using predefined preview data when available (or derived toolpath metadata when present). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/CustomPatternCreatorPage.tsx",
+          "operation": "modify",
+          "description": "Render PatternPreview for custom-generated toolpaths and keep it in sync with speed/scale updates. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Integrate optional cloud patterns storage UI: list/save/delete/get patterns and per-pattern LED presets, using Internet Identity where required.",
+      "acceptanceCriteria": [
+        "Backend exposes methods to create/list/get/delete custom patterns and to store/retrieve per-pattern LED presets.",
+        "Frontend can show a 'Cloud' source tab/section that lists patterns stored in the canister.",
+        "Data persists across refreshes (canister stable storage) for the same Internet Identity user."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useCloudPatterns.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to list/get/save/delete patterns and update per-pattern LED presets using the existing backend actor interface; handle authorization failures gracefully. Use the authorization component conventions (Internet Identity + profile) and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Add a Login/Logout button using the Internet Identity flow so users can authenticate when using Cloud patterns features. Use the authorization component guidance and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a first-login profile setup modal (ask for user name) that calls getCallerUserProfile/saveCallerUserProfile and avoids modal flash per authorization component guidance. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/patterns/PatternSourceTabs.tsx",
+          "operation": "create",
+          "description": "Add a Pattern source selector (e.g., Local/Sample vs Cloud) in the gallery; Cloud tab requires login and otherwise shows an access prompt. Use the authorization component patterns and verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PatternGalleryPage.tsx",
+          "operation": "modify",
+          "description": "Integrate PatternSourceTabs and display Cloud pattern list when authenticated; keep Sample/Local browsing accessible without login. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/CustomPatternCreatorPage.tsx",
+          "operation": "modify",
+          "description": "Add an optional 'Save to Cloud' action for generated patterns that is available only when authenticated; otherwise keep local export/send available. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/LedControlPage.tsx",
+          "operation": "modify",
+          "description": "When a cloud pattern is selected, allow saving/applying its LED preset via backend methods in addition to local preset storage. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire LoginButton and ProfileSetupModal into the global app shell so authentication is available when needed for Cloud patterns, without blocking non-cloud features. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Add safety & recovery UX: confirmations, state-aware disabling, and auto-resume prompt after reload based on stored session and refreshed status.",
+      "acceptanceCriteria": [
+        "If the app reloads while a run is in progress (based on stored session + refreshed status), the UI prompts the user to resume or stop.",
+        "Risky actions always require confirmation and are clearly described in English.",
+        "UI behavior is consistent with reported machine state (e.g., cannot 'Start' while Homing unless explicitly allowed)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/state/runSessionStore.ts",
+          "operation": "create",
+          "description": "Implement persisted run session state (selected pattern, last known run state, timestamps) to support recovery after reload and consistent UI state across navigation. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/safety/ResumePromptDialog.tsx",
+          "operation": "create",
+          "description": "Create a resume workflow dialog that appears after reload when stored session + refreshed machine status indicate an in-progress run; provide Resume and Stop choices with clear English text. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/run/RunControls.tsx",
+          "operation": "modify",
+          "description": "Enforce machine-state-aware disabling/labeling (e.g., Pause disabled when Idle) using the centralized machine status hook; keep confirmation dialogs for risky actions consistent. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/PatternRunPage.tsx",
+          "operation": "modify",
+          "description": "Persist session changes on start/pause/stop, refresh machine status on mount, and trigger ResumePromptDialog when appropriate. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure ResumePromptDialog can be displayed globally (or at least within run-related screens) after app reload based on stored session and fresh status. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Add in-repo documentation covering architecture, UI breakdown, controller protocol, error handling, and G-code generation approach.",
+      "acceptanceCriteria": [
+        "Docs exist in a dedicated docs location in the repo and are discoverable from a top-level index (e.g., docs/README).",
+        "Architecture diagram clearly shows: frontend, Motoko canister (optional cloud storage), and controller (ESP32/Arduino) communication paths.",
+        "Protocol spec enumerates commands, parameters, expected responses/acks, and error codes/messages handling.",
+        "UI breakdown lists each screen, key components, and primary user flows; includes at least low-fidelity wireframes (text/ASCII or image assets)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/docs/README.md",
+          "operation": "create",
+          "description": "Create a documentation index that links to architecture, UI breakdown, protocol spec, error handling, and G-code generation approach documents."
+        },
+        {
+          "path": "frontend/docs/architecture.md",
+          "operation": "create",
+          "description": "Add an architecture document describing the frontend, optional Motoko canister cloud storage, and controller communication paths (HTTP/WebSocket), including a simple diagram (Mermaid or ASCII)."
+        },
+        {
+          "path": "frontend/docs/ui-breakdown.md",
+          "operation": "create",
+          "description": "Add a screen-by-screen UI breakdown for Pattern Gallery, Pattern Run, Custom Creator, LED Control, Dashboard, and Settings/Connection, including low-fidelity wireframes (ASCII) and key user flows."
+        },
+        {
+          "path": "frontend/docs/controller-protocol.md",
+          "operation": "create",
+          "description": "Document the controller command protocol: commands (R, S, H, P<n>, LED:R,G,B, SPD:XXX), parameters, expected acks/responses, timeouts, and error handling conventions used by the frontend command layer."
+        },
+        {
+          "path": "frontend/docs/error-handling.md",
+          "operation": "create",
+          "description": "Document the app-wide error handling strategy: connection status/errors, toast/banner behaviors, authorization errors, timeouts, and recovery flows."
+        },
+        {
+          "path": "frontend/docs/gcode-generation.md",
+          "operation": "create",
+          "description": "Document the deterministic G-code generation approach used for sketch/image/prompt inputs, including simplification assumptions and how speed/scale affects output."
+        },
+        {
+          "path": "frontend/public/assets/generated/app-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated minimal premium sand-table-themed logo asset at this exact path and reference it from the app shell/navigation. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/branding/AppLogo.tsx",
+          "operation": "create",
+          "description": "Create a small branding component that displays the generated logo from frontend/public/assets/generated/app-logo.dim_512x512.png in the navigation/header. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "modify",
+          "description": "Wire AppLogo into the global app shell header/navigation so the generated logo is visible consistently across screens. Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}
